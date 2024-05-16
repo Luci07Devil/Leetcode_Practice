@@ -74,14 +74,14 @@
     class Solution {
     public:
     int removeDuplicates(vector<int>& nums) {
-    	int indx = 1;
-        int numsSize = nums.size();
-        for(int i = 1; i < numsSize; i++){
-            if(nums[i] != nums[i-1]){
-                nums[indx] = nums[i];
-                indx++;
-                }
+    int indx = 1;
+    int numsSize = nums.size();
+    for(int i = 1; i < numsSize; i++){
+        if(nums[i] != nums[i-1]){
+            nums[indx] = nums[i];
+            indx++;
             }
+        }
             return indx;
         }
     };
