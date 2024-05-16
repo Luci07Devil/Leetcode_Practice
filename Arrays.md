@@ -341,7 +341,7 @@
                 high = mid
         return low
 
-#### FLOOR IN SORTED ARRAY (BINARY SEARCH)
+#### FLOOR IN SORTED ARRAY (BINARY SEARCH) (UPPER BOUND)
 > Given a sorted array arr[] of size N without duplicates, and given a value x.
 > Floor of x is defined as the largest element K in arr[] such that K is smaller than or equal to x.
 > Find the index of K(0-based indexing).
@@ -353,10 +353,6 @@
 ###### Example 2:  
     Input: N = 7, x = 5, arr[] = {1,2,8,10,11,12,19}
     Output: 1
-###### Example 3:  
-    Input: nums = [1,3,5,6], target = 7
-    Output: 4
-    Explanation: Largest Number less than 5 is 2 (i.e K = 2), whose index is 1(0-based indexing).
 
 ###### Constraints:
 * 1 ≤ N ≤ 107
@@ -413,3 +409,71 @@
                     high = mid -1
             return ans
 
+#### CEIL IN SORTED ARRAY (BINARY SEARCH) (LOWER BOUND)
+> Given an unsorted array Arr[] of N integers and an integer X, find ceil of X in Arr[0..N-1].
+> Ceil of X is the smallest element which is greater than or equal to X.
+> Ceil of X doesn’t exist if X is greater than greatest element of Arr[].
+
+###### Example 1:  
+    Input: N = 8, X = 7 Arr[] = {5, 6, 8, 9, 6, 5, 5, 6}
+    Output: 8
+    Explanation: No element less than 0 is found. So output is "-1".
+###### Example 2:  
+    Input: 8, X = 10 Arr[] = {5, 6, 8, 9, 6, 5, 5, 6}
+    Output: -1
+    Explanation: ceil of 10 is not possible.
+
+###### Constraints:
+* 1 ≤ N ≤ 107
+* 1 ≤ arr[i] ≤ 1018
+* 0 ≤ X ≤ arr[n-1]
+* Expected Time Complexity: O(log N).
+* Expected Auxiliary Space: O(1).
+
+###### Solution:  
+> ###### C++
+    class Solution{
+    public:
+    // Function to find floor of x
+    // n: size of vector
+    // x: element whose floor is to find
+    int findCeil(vector<long long> v, long long n, long long x){
+        int res=-1; // Initialize with -1 assuming no floor found
+        int start=0;
+        int end= n-1;
+        while(start<=end)
+        {
+            int mid= start+ (end-start)/2;
+            if(v[mid]==x)  // If current ele is equal to x, then it is the floor of x
+            {
+                return mid;
+		}
+            else if(v[mid]>= x)  //If curr ele is less than x, update floorIndex & search ri8 half
+            {
+                res=mid;  //coz that is the present greatest smaller of x
+                end= mid-1;
+		}
+            else  // If current ele is greater than x, search left half
+	    {
+                start=mid+1;
+		}
+	    }
+        return res;
+	}
+    };  
+
+> ###### Python
+    class Solution:
+        def findCeil(self,A,N,X):
+            ans = -1
+            low,high=0, N-1
+            while low <= high:
+                mid =(low+high)//2
+                if A[mid] == X:
+                    return mid
+                elif A[mid] >= X:
+                    ans = mid
+                    high = mid -1
+                else:
+                    low = mid +1
+            return ans
