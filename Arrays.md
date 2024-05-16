@@ -404,7 +404,7 @@
             low,high=0, N-1
             while low <= high:
                 mid =(low+high)//2
-		if A[mid] == X:
+                if A[mid] == X:
                     return mid
                 elif A[mid] <= X:
                     ans = mid
