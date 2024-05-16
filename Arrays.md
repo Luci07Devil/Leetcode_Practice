@@ -20,6 +20,7 @@
 * -109 <= target <= 109
 * Only one valid answer exists.
 ###### Solution:
+> ###### C++
     class Solution {
     public:
 	    vector<int> twoSum(vector<int>& nums, int target) {
@@ -35,7 +36,17 @@
 		    }
 		    return {};
 	    }
-    };
+    };  
+> ###### Python
+    class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        prevMap = {}  # val -> index
+
+        for i, n in enumerate(nums):
+            diff = target - n
+            if diff in prevMap:
+                return [prevMap[diff], i]
+            prevMap[n] = i  
 
 #### REMOVE DUPLICATES FROM SORTED ARRAY
 > Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once.
@@ -90,13 +101,14 @@
     };
 > ###### Python
     class Solution:
-    def removeElement(self, nums: List[int], val: int) -> int:
-        k = 0
-        for i in range(len(nums)):
-            if nums[i] != val:
-                nums[k] = nums[i]
-                k += 1
-        return k  
+    def removeDuplicates(self, nums: List[int]) -> int:
+        L = 1
+        
+        for R in range(1, len(nums)):
+            if nums[R] != nums[R - 1]:
+                nums[L] = nums[R]
+                L += 1
+        return L  
 
 #### REMOVE ELEMENT
 > Given an integer array nums and an integer val, remove all occurrences of val in nums in-place.
@@ -136,7 +148,8 @@
 * -100 <= nums[i] <= 100
 * nums is sorted in non-decreasing order.
 
-###### Solution:
+###### Solution:  
+> ###### C++
     class Solution {
     public:
     int removeDuplicates(vector<int>& nums) {
@@ -151,3 +164,12 @@
             return indx;
         }
     };
+> ###### Python
+    class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        k = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[k] = nums[i]
+                k += 1
+        return k  
