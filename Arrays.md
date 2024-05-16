@@ -174,59 +174,6 @@
                 k += 1
         return k  
 
-#### SEARCH INSERT POSITION (BINARY SEARCH)
-> Given a sorted array of distinct integers and a target value, return the index if the target is found.
-> If not, return the index where it would be if it were inserted in order.
-> You must write an algorithm with O(log n) runtime complexity.
-
-###### Example 1:  
-    Input: nums = [1,3,5,6], target = 5
-    Output: 2
-###### Example 2:  
-    Input: nums = [1,3,5,6], target = 2
-    Output: 1
-###### Example 3:  
-    Input: nums = [1,3,5,6], target = 7
-    Output: 4
-
-###### Constraints:
-* 1 <= nums.length <= 104
-* -104 <= nums[i] <= 104
-* nums contains distinct values sorted in ascending order.
-* -104 <= target <= 104
-
-###### Solution:  
-> ###### C++
-    class Solution {
-    public:
-    int searchInsert(vector<int>& nums, int target) {
-        int left = 0;
-        int right = nums.size() - 1;
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-
-            if (nums[mid] < target)
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-        return left;
-	}
-    };  
-
-> ###### Python
-    class Solution:
-    def searchInsert(self, nums: List[int], target: int) -> int:
-        low, high = 0, len(nums)
-        while low<high:
-            mid = low +(high - low) // 2
-            if target > nums[mid]:
-                low = mid + 1
-            else:
-                high = mid
-        return low
-  
 #### Plus One (Number Array -> Integer => Increment Integer => Number Array (OP))
 > You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer.
 > The digits are ordered from most significant to least significant in left-to-right order.
@@ -341,4 +288,128 @@
                 return mid
         return -1  
 
+#### SEARCH INSERT POSITION (BINARY SEARCH)
+> Given a sorted array of distinct integers and a target value, return the index if the target is found.
+> If not, return the index where it would be if it were inserted in order.
+> You must write an algorithm with O(log n) runtime complexity.
+
+###### Example 1:  
+    Input: nums = [1,3,5,6], target = 5
+    Output: 2
+###### Example 2:  
+    Input: nums = [1,3,5,6], target = 2
+    Output: 1
+###### Example 3:  
+    Input: nums = [1,3,5,6], target = 7
+    Output: 4
+
+###### Constraints:
+* 1 <= nums.length <= 104
+* -104 <= nums[i] <= 104
+* nums contains distinct values sorted in ascending order.
+* -104 <= target <= 104
+
+###### Solution:  
+> ###### C++
+    class Solution {
+    public:
+    int searchInsert(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] < target)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return left;
+	}
+    };  
+
+> ###### Python
+    class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        low, high = 0, len(nums)
+        while low<high:
+            mid = low +(high - low) // 2
+            if target > nums[mid]:
+                low = mid + 1
+            else:
+                high = mid
+        return low
+
+#### FLOOR IN SORTED ARRAY (BINARY SEARCH)
+> Given a sorted array arr[] of size N without duplicates, and given a value x.
+> Floor of x is defined as the largest element K in arr[] such that K is smaller than or equal to x.
+> Find the index of K(0-based indexing).
+
+###### Example 1:  
+    Input: N = 7, x = 0, arr[] = {1,2,8,10,11,12,19}
+    Output: -1
+    Explanation: No element less than 0 is found. So output is "-1".
+###### Example 2:  
+    Input: N = 7, x = 5, arr[] = {1,2,8,10,11,12,19}
+    Output: 1
+###### Example 3:  
+    Input: nums = [1,3,5,6], target = 7
+    Output: 4
+    Explanation: Largest Number less than 5 is 2 (i.e K = 2), whose index is 1(0-based indexing).
+
+###### Constraints:
+* 1 ≤ N ≤ 107
+* 1 ≤ arr[i] ≤ 1018
+* 0 ≤ X ≤ arr[n-1]
+* Expected Time Complexity: O(log N).
+* Expected Auxiliary Space: O(1).
+
+###### Solution:  
+> ###### C++
+    class Solution{
+    public:
+    // Function to find floor of x
+    // n: size of vector
+    // x: element whose floor is to find
+    int findFloor(vector<long long> v, long long n, long long x){
+        int res=-1; // Initialize with -1 assuming no floor found
+        int start=0;
+        int end= n-1;
+        while(start<=end)
+        {
+            int mid= start+ (end-start)/2;
+            if(v[mid]==x)  // If current ele is equal to x, then it is the floor of x
+            {
+                return mid;
+		}
+            else if(v[mid]< x)  //If curr ele is less than x, update floorIndex & search ri8 half
+            {
+                res=mid;  //coz that is the present greatest smaller of x
+                start= mid+1;
+		}
+            else  // If current ele is greater than x, search left half
+	    {
+                end=mid-1;
+		}
+	    }
+        return res;
+	}
+    };  
+
+> ###### Python
+    class Solution:
+        def findFloor(self,A,N,X):
+            ans = -1
+            low,high=0, N-1
+            while low <= high:
+                mid =(low+high)//2
+		if A[mid] == X:
+                    return mid
+                elif A[mid] <= X:
+                    ans = mid
+                    low = mid +1
+                else:
+                    high = mid -1
+            return ans
 
