@@ -249,3 +249,102 @@
                 else:
                     low = mid +1
             return ans
+
+#### CEIL THE FLOOR (BINARY SEARCH) (LOWER BOUND + UPPER BOUND)
+> Given an unsorted array Arr[] of N integers and an integer X, find floor and ceiling of X in Arr[0..N-1].
+> Floor of X is the largest element which is smaller than or equal to X. Floor of X doesn’t exist if X is smaller than smallest element of Arr[].
+> Ceil of X is the smallest element which is greater than or equal to X. Ceil of X doesn’t exist if X is greater than greatest element of Arr[].
+> Complete the function getFloorAndCeil() which takes the array of integers arr, n and x as parameters and returns a pair of integers denoting the answer.
+> Return -1 if floor or ceil is not present.
+
+###### KEY NOTES:
+* The lower bound algorithm finds the first or the smallest index in a sorted array where the value at that index is greater than or equal to a given key i.e. x.
+* The lower bound is the smallest index, ind, where arr[ind] >= x. But if any such index is not found, the lower bound algorithm returns n i.e. size of the given array.
+
+###### Example 1:  
+    Input: N = 8, X = 7, Arr[] = {5, 6, 8, 9, 6, 5, 5, 6}
+    Output: 6 8
+    Explanation: Floor of 7 is 6 and ceil of 7 is 8.
+###### Example 2:  
+    Input: N = 8, X = 10, Arr[] = {5, 6, 8, 9, 6, 5, 5, 6}
+    Output: 9 -1
+    Explanation: Floor of 10 is 9 but ceil of 10 is not possible.
+
+###### Constraints:
+* 1 ≤ N ≤ 105
+* 1 ≤ Arr[i], X ≤ 106
+* Expected Time Complexity: O(log N).
+* Expected Auxiliary Space: O(1).
+
+###### Solution:  
+> ###### C++
+    class Solution{
+    public:
+    // Function to find floor and ceil of x
+    // n: size of vector
+    // x: element whose floor is to find
+    std::vector<int> getFloorAndCeil(std::vector<int>& arr, int n, int x) {
+    std::sort(arr.begin(), arr.end());
+
+    auto getFloor = & {
+        int low = 0, high = n - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] <= x) {
+                ans = arr[mid];
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans;
+    };
+
+    auto getCeil = & {
+        int low = 0, high = n - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] >= x) {
+                ans = arr[mid];
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    };
+
+    return {getFloor(x), getCeil(x)};
+    }
+    };  
+
+> ###### Python
+    class Solution:
+    def getFloorAndCeil(arr, n, x):
+    	# code here
+    	arr.sort()
+        def getFloor(arr,n,x):
+            low,high = 0, n-1
+	    ans = -1
+            while (low<=high):
+                mid = (low+high)//2
+                if arr[mid] <= x:
+                    ans = arr[mid]
+                    low = mid + 1
+                else:
+                    high = mid -1
+            return ans
+        def getCeil(arr,n,x):
+            low,high = 0, n-1
+            ans = -1
+            while (low<=high):
+                mid = (low+high)//2
+                if arr[mid] >= x:
+                    ans = arr[mid]
+                    high = mid -1
+                else:
+                    low = mid + 1
+            return ans
+        return([getFloor(arr,n,x),getCeil(arr,n,x)])
