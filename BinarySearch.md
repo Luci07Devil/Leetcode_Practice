@@ -111,8 +111,8 @@
 > Find the index of K(0-based indexing).
 
 ###### KEY NOTE
-    * The upper bound algorithm finds the first or the smallest index in a sorted array where the value at that index is greater than the given key i.e. x.
-    * The upper bound is the smallest index, ind, where arr[ind] > x. But if any such index is not found, the upper bound algorithm returns n i.e. size of the given array. 
+* The upper bound algorithm finds the first or the smallest index in a sorted array where the value at that index is greater than the given key i.e. x.
+* The upper bound is the smallest index, ind, where arr[ind] > x. But if any such index is not found, the upper bound algorithm returns n i.e. size of the given array. 
 
 ###### Example 1:  
     Input: N = 7, x = 0, arr[] = {1,2,8,10,11,12,19}
@@ -183,8 +183,8 @@
 > Ceil of X doesn’t exist if X is greater than greatest element of Arr[].
 
 ###### KEY NOTES:
-    * The lower bound algorithm finds the first or the smallest index in a sorted array where the value at that index is greater than or equal to a given key i.e. x.
-    * The lower bound is the smallest index, ind, where arr[ind] >= x. But if any such index is not found, the lower bound algorithm returns n i.e. size of the given array.
+* The lower bound algorithm finds the first or the smallest index in a sorted array where the value at that index is greater than or equal to a given key i.e. x.
+* The lower bound is the smallest index, ind, where arr[ind] >= x. But if any such index is not found, the lower bound algorithm returns n i.e. size of the given array.
 
 ###### Example 1:  
     Input: N = 8, X = 7 Arr[] = {5, 6, 8, 9, 6, 5, 5, 6}
