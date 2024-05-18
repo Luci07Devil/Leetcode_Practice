@@ -693,3 +693,83 @@
 					else:
 						high = mid -1
 			return False
+
+#### FIND MINIMUM IN SORTED ROTATED ARRAY (BINARY SEARCH) 
+> Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+> [4,5,6,7,0,1,2] if it was rotated 4 times.
+> [0,1,2,4,5,6,7] if it was rotated 7 times.
+> Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+> Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+> You must write an algorithm that runs in O(log n) time.
+
+###### KEY NOTES:
+* First, we identify the sorted half of the array.
+* Determine if the target is located within this sorted half.
+* If not, we eliminate that half from further consideration.
+* Conversely, if the target does exist in the sorted half, we eliminate the other half.
+* If left part is sorted: Pick the leftmost element i.e. arr[low], find min(ans, arr[low]), eliminate left half (low = mid+1).
+* If right half is sorted:  Pick the leftmost element i.e. arr[mid]. find min(ans, arr[mid]), eliminate right half (high = mid-1).
+
+###### Example 1:  
+    Input: nums = [3,4,5,1,2]
+    Output: 1
+    Explanation: The original array was [1,2,3,4,5] rotated 3 times.
+###### Example 2:  
+    Input: nums = [4,5,6,7,0,1,2]
+    Output: 0
+    Explanation: The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.
+###### Example 3:  
+    Input: nums = [11,13,15,17]
+    Output: 11
+    Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
+
+###### Constraints:
+* n == nums.length
+* 1 <= n <= 5000
+* -5000 <= nums[i] <= 5000
+* All the integers of nums are unique.
+* nums is sorted and rotated between 1 and n times.
+
+###### Solution:  
+> ###### C++
+	#include <vector>
+	#include <algorithm>
+	
+	class Solution {
+	public:
+		int findMin(std::vector<int>& nums) {
+			int low = 0;
+			int high = nums.size() - 1;
+			int ans = INT_MAX; // Equivalent to sys.maxsize in Python
+	
+			while (low <= high) {
+				int mid = (low + high) / 2;
+				if (nums[low] <= nums[mid]) {
+					ans = std::min(ans, nums[low]);
+					low = mid + 1;
+				} else {
+					ans = std::min(ans, nums[mid]);
+					high = mid - 1;
+				}
+			}
+	
+			return ans;
+		}
+	};
+
+
+> ###### Python
+	import sys
+	class Solution:
+		def findMin(self, nums: List[int]) -> int:
+			low, high = 0, len(nums) -1
+			ans = sys.maxsize
+			while low <= high:
+				mid = (low + high) //2
+				if nums[low]<=nums[mid]:
+					ans = min(ans,nums[low])
+					low = mid +1
+				else:
+					ans = min(ans,nums[mid])
+					high = mid -1
+			return ans
