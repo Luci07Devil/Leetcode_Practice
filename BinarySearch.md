@@ -94,16 +94,28 @@
     };  
 
 > ###### Python
+    ###### solution 1
     class Solution:
-    def searchInsert(self, nums: List[int], target: int) -> int:
-        low, high = 0, len(nums)
-        while low<high:
-            mid = low +(high - low) // 2
-            if target > nums[mid]:
-                low = mid + 1
-            else:
-                high = mid
-        return low
+        def searchInsert(self, nums: List[int], target: int) -> int:
+            low, high = 0, len(nums)
+            while low<high:
+                mid = low +(high - low) // 2
+                if target > nums[mid]:
+                    low = mid + 1
+                else:
+                    high = mid
+            return low
+    ###### solution 2
+    class Solution:
+        def searchInsert(self, nums: List[int], target: int) -> int:
+	    low, high = 0, len(nums)-1
+            while low<= high:
+                mid = (low + high) //2
+                if(target>nums[mid]):
+                    low = mid +1
+                else:
+                    high = mid -1
+            return low
 
 #### FLOOR IN SORTED ARRAY (BINARY SEARCH) (UPPER BOUND)
 > Given a sorted array arr[] of size N without duplicates, and given a value x.
