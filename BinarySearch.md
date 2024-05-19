@@ -757,7 +757,6 @@
 		}
 	};
 
-
 > ###### Python
 	import sys
 	class Solution:
@@ -773,3 +772,66 @@
 					ans = min(ans,nums[mid])
 					high = mid -1
 			return ans
+
+#### ROTATION (BINARY SEARCH) 
+> Given an ascending sorted rotated array arr of distinct integers of size n.
+> The array is right-rotated k times.
+> Find the value of k.
+
+###### KEY NOTES:
+* The number of rotations in an array is equal to the index(0-based index) of its minimum element.
+*  Check if 0th < nth, then array is rotated 0 times, min_ele = 0th element, break loop.
+*  Check if low <= mid, then left half is sorted. if low < ans, update ans => arr[low] and index => low.
+*  Check if mid <= ans, then left half is sorted. if low < ans, update ans => arr[low] and index => low.
+
+*  MY LOGIC: find the rotation point (pivot) in the array. Pivot is the only element whose previous element is greater than it. If pivot, return pivot + 1 => (rotation count).
+
+###### Example 1:  
+    Input: n = 5, arr[] = {5, 1, 2, 3, 4}
+    Output: 1
+    Explanation: The given array is 5 1 2 3 4. The original sorted array is 1 2 3 4 5. We can see that the array was rotated 1 times to the right.
+###### Example 2:  
+    Input: n = 5 arr[] = {1, 2, 3, 4, 5}
+    Output: 0
+    Explanation: The given array is not rotated.
+
+###### Constraints:
+* n == nums.length
+* 1 <= n <= 5000
+* -5000 <= nums[i] <= 5000
+* All the integers of nums are unique.
+* nums is sorted and rotated between 1 and n times.
+
+###### Solution:  
+> ###### C++
+	#include <iostream>
+	#include <vector>
+	class Solution{
+	public:	
+		int findKRotation(int arr[], int n) {
+			// code here
+			int left = 0;
+			int right = n - 1;
+			while (left < right) {
+				int mid = left + (right - left) / 2;
+				if (arr[mid] > arr[right]) {
+					left = mid + 1;
+				} else {
+					right = mid;
+				}
+			}
+			return left % n;
+		}
+	};
+
+> ###### Python
+	class Solution:
+		def findKRotation(self,arr,  n):
+			left, right = 0, len(arr) - 1
+			while left < right:
+				mid = (left + right) // 2
+				if arr[mid] > arr[right]:
+					left = mid + 1
+				else:
+					right = mid
+			return (left % len(arr))
