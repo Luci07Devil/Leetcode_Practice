@@ -835,3 +835,78 @@
 				else:
 					right = mid
 			return (left % len(arr))
+
+#### SINGLE ELEMENT IN A SORTED ARRAY (BINARY SEARCH) 
+> You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.
+> Return the single element that appears only once.
+> Your solution must run in O(log n) time and O(1) space.
+
+###### KEY NOTES:
+* Observation: Single element occurs at even indexes.
+
+*  MY LOGIC: find the rotation point (pivot) in the array. Pivot is the only element whose previous element is greater than it. If pivot, return pivot + 1 => (rotation count).
+
+###### Example 1:  
+    Input: n = 5, arr[] = {5, 1, 2, 3, 4}
+    Output: 1
+    Explanation: The given array is 5 1 2 3 4. The original sorted array is 1 2 3 4 5. We can see that the array was rotated 1 times to the right.
+###### Example 2:  
+    Input: n = 5 arr[] = {1, 2, 3, 4, 5}
+    Output: 0
+    Explanation: The given array is not rotated.
+
+###### Constraints:
+* n == nums.length
+* 1 <= n <= 5000
+* -5000 <= nums[i] <= 5000
+* All the integers of nums are unique.
+* nums is sorted and rotated between 1 and n times.
+
+###### Solution:  
+> ###### C++
+	#include <iostream>
+	#include <vector>
+	
+	class Solution {
+	public:
+		int singleNonDuplicate(std::vector<int>& nums) {
+			int left = 0;
+			int right = nums.size() - 1;
+			while (left < right) {
+				int mid = left + (right - left) / 2;
+				if (mid % 2 == 0) {
+					if (nums[mid] == nums[mid + 1]) {
+						left = mid + 2;
+					} else {
+						right = mid;
+					}
+				} else {
+					if (nums[mid] == nums[mid - 1]) {
+						left = mid + 1;
+					} else {
+						right = mid - 1;
+					}
+				}
+			}
+			return nums[left];
+		}
+	};
+
+> ###### Python
+	class Solution:
+		def singleNonDuplicate(self, nums: List[int]) -> int:
+			left, right = 0, len(nums) - 1
+			while left < right:
+				mid = left + (right - left) // 2
+				if mid % 2 == 0:
+					if nums[mid] == nums[mid + 1]:
+						left = mid + 2
+					else:
+						right = mid
+				else:
+					if nums[mid] == nums[mid - 1]:
+						left = mid + 1
+					else:
+						right = mid - 1
+			return nums[left]
+
