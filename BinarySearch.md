@@ -916,8 +916,9 @@
 > You must write an algorithm that runs in O(log n) time.
 
 ###### KEY NOTES:
-* Observation: Single element occurs at even indexes.
-*  MY LOGIC: find the rotation point (pivot) in the array. Pivot is the only element whose previous element is greater than it. If pivot, return pivot + 1 => (rotation count).
+* Check if the peak occurs on the descending side of mid, if so peak is on the left, then low = mid
+* Check if the peak occurs on the ascending side of mid, if so peak is on the right, then high = mid +1
+* low will have the peak element index
 
 ###### Example 1:  
     Input: nums = [1,2,3,1]
@@ -926,7 +927,7 @@
 ###### Example 2:  
     Input: nums = [1,2,1,3,5,6,4]
     Output: 5
-    Explanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.
+    Explanation: Return either index 1 where the peak is 2 or index 5 where the peak is 6.
 
 ###### Constraints:
 * 1 <= nums.length <= 1000
